@@ -45,3 +45,45 @@ def login(username, password) {
 
 
 # test
+
+
+# custom keyword in Katalon Studio that can be used to generate a random alphanumeric string:
+
+Copy code
+----------
+
+
+/**
+* Generates a random alphanumeric string.
+*
+* @param length The length of the string to generate.
+* @return The generated string.
+*/
+def generateRandomString(length) {
+    String chars = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ'
+    StringBuilder sb = new StringBuilder()
+    Random random = new Random()
+    for (int i = 0; i < length; i++) {
+        char c = chars.charAt(random.nextInt(chars.length()))
+        sb.append(c)
+    }
+    return sb.toString()
+}
+
+
+
+This keyword takes a single parameter, length, which represents the length of the string to generate. It generates the string by selecting random characters from a predefined list of alphanumeric characters and appending them to a StringBuilder object. The resulting string is then returned.
+
+You can use this keyword in your test scripts by calling it and passing in the desired length of the generated string. For example:
+
+Copy code
+----------
+
+
+String randomString = generateRandomString(10)
+
+
+This would generate a random alphanumeric string of length 10.
+
+
+
