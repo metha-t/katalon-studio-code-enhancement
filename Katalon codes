@@ -86,4 +86,69 @@ String randomString = generateRandomString(10)
 This would generate a random alphanumeric string of length 10.
 
 
+# Here is a sample Java code that demonstrates how to use Selenium with JMeter to test the performance of a web application:
+                  -----------                             --------------------
+Copy code
+---------
+
+
+import java.io.IOException;
+import java.util.concurrent.TimeUnit;
+
+import org.openqa.selenium.By;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
+import org.openqa.selenium.chrome.ChromeDriver;
+
+public class SeleniumTest {
+
+    private static WebDriver driver;
+
+    public static void main(String[] args) throws IOException {
+        // Set up the Chrome driver
+        System.setProperty("webdriver.chrome.driver", "/path/to/chromedriver");
+        driver = new ChromeDriver();
+
+        // Set the timeouts for the driver
+        driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
+        driver.manage().timeouts().pageLoadTimeout(30, TimeUnit.SECONDS);
+
+        // Navigate to the web application under test
+        driver.get("http://www.example.com");
+
+        // Perform actions on the web page using Selenium
+        WebElement searchBox = driver.findElement(By.id("search-box"));
+        searchBox.sendKeys("selenium");
+        searchBox.submit();
+
+        // Retrieve performance data using Selenium
+        long loadTime = (long) ((JavascriptExecutor) driver).executeScript("return performance.timing.loadEventEnd - performance.timing.navigationStart;");
+        System.out.println("Load time: " + loadTime + "ms");
+
+        // Close the driver
+        driver.quit();
+    }
+}
+
+
+This code uses the ChromeDriver to launch Google Chrome and navigate to a web page. It then performs some actions on the page using Selenium, such as entering text into a search box and submitting the form. Finally, it retrieves performance data using the JavaScript performance.timing API and prints it to the console.
+
+To use this code in JMeter, you would need to add the necessary Selenium and ChromeDriver libraries to your JMeter classpath and specify the fully qualified name of this Java class (SeleniumTest) in the Java Request Sampler. When you run the JMeter test plan, it will execute this Selenium test script and measure the performance of the web application.
+
+
+# sample perfomance testing code for google search 
+         -----------------          -------------
+
+
+
+
+
+
+
+
+
+
+
+
+
 
