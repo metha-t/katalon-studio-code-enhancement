@@ -202,12 +202,140 @@ public class GoogleSearchTest {
 }
 
 
+# by using katalon studio whether we can do perfomance testing or not?
+           ==============                   ==================
+
+
+Yes, it is possible to use Katalon Studio for performance testing.
+
+Katalon Studio is a comprehensive test automation tool that provides a variety of features for testing web, mobile, and API applications, including performance testing.
+
+To perform performance testing with Katalon Studio, you can use the built-in Performance Profiler or integrate with third-party performance testing tools such as Apache JMeter.
+
+With the Performance Profiler, you can create and run performance tests directly from the Katalon Studio interface, without the need for additional tools or setup. The Performance Profiler allows you to record and replay performance test scenarios, measure the response time of your application under different load conditions, and generate performance reports.
+
+You can also use Katalon Studio to integrate with Apache JMeter and leverage the full capabilities of JMeter for performance testing. This allows you to create and run performance tests using the JMeter GUI or command-line interface, and view the results in the Katalon Studio dashboard.
+
+Overall, Katalon Studio provides a range of options and capabilities for performance testing that can be tailored to the needs of your specific testing project.
+
+
+#  a sample code for integrating Apache JMeter with Katalon Studio for performance testing:
+                     =============================================     ===========
+
+Copy code
+=========
+
+
+import com.kms.katalon.core.annotation.UsingKeyword
+import com.kms.katalon.core.model.FailureHandling as FailureHandling
+import com.kms.katalon.core.testobject.ConditionType as ConditionType
+import com.kms.katalon.core.testobject.TestObject as TestObject
+import com.kms.katalon.core.webui.keyword.WebUiBuiltInKeywords as WebUI
+import com.kms.katalon.core.webui.keyword.internal.WebUIKeywordMain as WebUIKeywordMain
+
+import org.junit.Assert
+
+import java.util.concurrent.TimeUnit
+
+// Define the path to the JMeter bin directory
+def jmeterPath = '/path/to/jmeter/bin'
+
+// Define the path to the JMeter test plan
+def jmeterTestPlan = '/path/to/jmeter/testplan.jmx'
+
+@UsingKeyword
+def runJMeterTest() {
+    // Run the JMeter test plan using the command-line interface
+    def cmd = jmeterPath + '/jmeter -n -t ' + jmeterTestPlan
+    def process = cmd.execute()
+
+    // Wait for the JMeter process to complete
+    process.waitFor()
+
+    // Check the exit value of the JMeter process
+    if (process.exitValue() != 0) {
+        // If the exit value is non-zero, fail the test
+        Assert.fail('JMeter test failed')
+    }
+}
+
+WebUI.openBrowser('http://www.example.com')
+
+// Perform some actions on the web page
+WebUI.click(findTestObject('Object Repository/Page_Example/Button_Click'))
+
+// Run the JMeter test
+runJMeterTest()
+
+WebUI.closeBrowser()
 
 
 
+This code uses the java.lang.Process class to run a JMeter test plan from the command-line interface, and waits for the JMeter process to complete before checking the exit value. If the exit value is non-zero, it indicates that the JMeter test has failed, and the test will be marked as a failure in Katalon Studio.
+
+To use this code in your Katalon Studio project, you would need to specify the correct path to the JMeter bin directory and the JMeter test plan on your system. You can then call the runJMeterTest() function at any point in your test script to run the JMeter test as part of your overall testing workflow.
+
+Note that this is just one example of how you can integrate JMeter with Katalon Studio for performance testing. There are many other approaches and configurations that you could use, depending on your specific testing requirements.
+
+
+                                                                                     
+ # example of how you could modify the sample code to perform performance testing on the Google search function using Apache JMeter and Katalon Studio:     ---------------------------        --------------
+
+Copy code
+=========
+
+import com.kms.katalon.core.annotation.UsingKeyword
+import com.kms.katalon.core.model.FailureHandling as FailureHandling
+import com.kms.katalon.core.testobject.ConditionType as ConditionType
+import com.kms.katalon.core.testobject.TestObject as TestObject
+import com.kms.katalon.core.webui.keyword.WebUiBuiltInKeywords as WebUI
+import com.kms.katalon.core.webui.keyword.internal.WebUIKeywordMain as WebUIKeywordMain
+
+import org.junit.Assert
+
+import java.util.concurrent.TimeUnit
+
+// Define the path to the JMeter bin directory
+def jmeterPath = '/path/to/jmeter/bin'
+
+// Define the path to the JMeter test plan
+def jmeterTestPlan = '/path/to/jmeter/google-search.jmx'
+
+@UsingKeyword
+def runJMeterTest() {
+    // Run the JMeter test plan using the command-line interface
+    def cmd = jmeterPath + '/jmeter -n -t ' + jmeterTestPlan
+    def process = cmd.execute()
+
+    // Wait for the JMeter process to complete
+    process.waitFor()
+
+    // Check the exit value of the JMeter process
+    if (process.exitValue() != 0) {
+        // If the exit value is non-zero, fail the test
+        Assert.fail('JMeter test failed')
+    }
+}
+
+WebUI.openBrowser('https://www.google.com')
+
+// Perform a search using Selenium
+WebUI.setText(findTestObject('Object Repository/Page_Google/Textbox_Search'), 'selenium')
+WebUI.click(findTestObject('Object Repository/Page_Google/Button_Search'))
+
+// Wait for the search results to load
+WebUI.delay(5)
+
+// Run the JMeter test
+runJMeterTest()
+
+WebUI.closeBrowser()
 
 
 
+This code launches a web browser, navigates to the Google search page, performs a search using Selenium, and then runs a JMeter test plan to measure the performance of the search function. The JMeter test plan should contain the necessary JMeter elements to simulate user actions on the search page and measure the performance of the application.
+
+To use this code in your Katalon Studio project, you would need to specify the correct path to the JMeter bin directory and the JMeter test plan on your system, and you would also need to create the necessary test objects in the Object Repository to reference the search textbox and button elements on the page. When you run the test script, it will execute the JMeter test as part of the overall testing workflow and measure the performance of the Google search function.
 
 
 
