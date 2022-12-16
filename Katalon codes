@@ -86,6 +86,29 @@ String randomString = generateRandomString(10)
 This would generate a random alphanumeric string of length 10.
 
 
+
+
+# how to use java selenium in  J meter
+             -------------     -------
+			 
+			 
+Yes, it is possible to use Java and Selenium together in JMeter to perform load and performance testing on a web application.
+
+Selenium is a suite of tools for automated web testing that allows you to control a web browser through code. By using Selenium with Java in JMeter, you can create custom test scripts that can simulate user actions on a web page and measure the performance of the application under different load conditions.
+
+To use Selenium with Java in JMeter, you can follow these steps:
+
+Install the necessary Java libraries for Selenium and add them to your JMeter classpath.
+
+Use the JMeter GUI to create a new Thread Group and add a Sampler to it. Select "Java Request" as the type of Sampler.
+
+In the Java Request Sampler, specify the fully qualified name of the Java class that will contain your Selenium test script.
+
+Write your Selenium test script in Java and make sure it is saved in a package that is accessible from JMeter. Your test script should contain the necessary Selenium code to perform the desired actions on the web page and to retrieve performance data.
+
+Run your JMeter test plan to execute the Selenium test script and measure the performance of your web application.
+
+
 # Here is a sample Java code that demonstrates how to use Selenium with JMeter to test the performance of a web application:
                   -----------                             --------------------
 Copy code
@@ -139,6 +162,44 @@ To use this code in JMeter, you would need to add the necessary Selenium and Chr
 # sample perfomance testing code for google search 
          -----------------          -------------
 
+import java.io.IOException;
+import java.util.concurrent.TimeUnit;
+
+import org.openqa.selenium.By;
+import org.openqa.selenium.JavascriptExecutor;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
+import org.openqa.selenium.chrome.ChromeDriver;
+
+public class GoogleSearchTest {
+
+    private static WebDriver driver;
+
+    public static void main(String[] args) throws IOException {
+        // Set up the Chrome driver
+        System.setProperty("webdriver.chrome.driver", "/path/to/chromedriver");
+        driver = new ChromeDriver();
+
+        // Set the timeouts for the driver
+        driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
+        driver.manage().timeouts().pageLoadTimeout(30, TimeUnit.SECONDS);
+
+        // Navigate to the Google search page
+        driver.get("https://www.google.com");
+
+        // Perform a search using Selenium
+        WebElement searchBox = driver.findElement(By.name("q"));
+        searchBox.sendKeys("selenium");
+        searchBox.submit();
+
+        // Retrieve performance data using Selenium
+        long loadTime = (long) ((JavascriptExecutor) driver).executeScript("return performance.timing.loadEventEnd - performance.timing.navigationStart;");
+        System.out.println("Load time: " + loadTime + "ms");
+
+        // Close the driver
+        driver.quit();
+    }
+}
 
 
 
