@@ -382,3 +382,22 @@ Alternatively, you can use the Runtime class to execute a .bat file:
 Runtime.getRuntime().exec("cmd.exe /c path/to/your/file.bat");
 
 Note that both of these approaches require the user to have the necessary permissions to execute the .bat file.
+
+
+
+
+
+
+
+
+
+
+
+import java.io.IOException;
+
+public class OpenFile {
+public static void main(String[] args) throws IOException {
+String filePath = "path/to/your/file.txt";
+Runtime.getRuntime().exec("explorer.exe /select," + filePath);
+}
+}
