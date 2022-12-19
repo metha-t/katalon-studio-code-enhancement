@@ -341,3 +341,28 @@ To use this code in your Katalon Studio project, you would need to specify the c
 
 
 
+To execute a Windows command in Java, you can use the following code:
+
+Import the required classes:
+Copy code
+import java.io.BufferedReader;
+import java.io.InputStreamReader;
+Create a ProcessBuilder object and set the command to be executed:
+Copy code
+ProcessBuilder processBuilder = new ProcessBuilder("cmd.exe", "/c", "YOUR_COMMAND_HERE");
+Start the process and get the input stream:
+Copy code
+Process process = processBuilder.start();
+InputStreamReader inputStreamReader = new InputStreamReader(process.getInputStream());
+BufferedReader bufferedReader = new BufferedReader(inputStreamReader);
+Read the output from the command:
+Copy code
+String line;
+while ((line = bufferedReader.readLine()) != null) {
+    System.out.println(line);
+}
+Close the input stream:
+Copy code
+bufferedReader.close();
+inputStreamReader.close();
+Note: Make sure to handle exceptions appropriately.
