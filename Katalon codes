@@ -401,3 +401,6 @@ String filePath = "path/to/your/file.txt";
 Runtime.getRuntime().exec("explorer.exe /select," + filePath);
 }
 }
+
+def batFile = "path/to/your/file.bat"
+Desktop.getDesktop().open(new File(batFile))
