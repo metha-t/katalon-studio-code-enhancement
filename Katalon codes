@@ -418,3 +418,23 @@ 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
 new for vs
 
 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
+
+
+
+import com.opencsv.CSVReader
+import com.opencsv.CSVWriter
+
+// Reading from a CSV file
+def reader = new CSVReader(new FileReader("example.csv"))
+def data = reader.readAll()
+
+// Incrementing a specific cell's data
+def row = 2
+def col = 3
+def cellValue = data[row][col].toInteger() + 1
+data[row][col] = cellValue.toString()
+
+// Writing the incremented data back to the same cell
+def writer = new CSVWriter(new FileWriter("example.csv"))
+data.each { writer.writeNext(it) }
+writer.close()
